@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp1", "WpfApp1\WpfApp1.csproj", "{E0841EB8-5C4C-44AB-8630-B6E0ECD5736D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RxAPI", "RxAPI\RxAPI.csproj", "{B029A82C-E414-4B47-A08A-60006874951B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RxExamples", "RxExamples\RxExamples.csproj", "{ECD0BDCF-BE72-4741-8F19-EAEEE8F07204}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E0841EB8-5C4C-44AB-8630-B6E0ECD5736D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E0841EB8-5C4C-44AB-8630-B6E0ECD5736D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E0841EB8-5C4C-44AB-8630-B6E0ECD5736D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E0841EB8-5C4C-44AB-8630-B6E0ECD5736D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B029A82C-E414-4B47-A08A-60006874951B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B029A82C-E414-4B47-A08A-60006874951B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B029A82C-E414-4B47-A08A-60006874951B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B029A82C-E414-4B47-A08A-60006874951B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECD0BDCF-BE72-4741-8F19-EAEEE8F07204}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECD0BDCF-BE72-4741-8F19-EAEEE8F07204}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECD0BDCF-BE72-4741-8F19-EAEEE8F07204}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECD0BDCF-BE72-4741-8F19-EAEEE8F07204}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
