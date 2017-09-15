@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
 
 namespace RxExamples.Pages
@@ -11,10 +12,17 @@ namespace RxExamples.Pages
         public static async Task<IEnumerable<string>> GetAsync()
         {
             return await Enumerable.Range(1, 6).ToObservable()
-                .SelectMany(id => GetStatusAsync(id))
+                .Select(id =>
+                    Observable.Defer(
+                            () => GetStatusAsync(id).ToObservable()
+                        )
+                        .Retry(1 /*time before give up*/)
+                        .Catch(Observable.Return($"{id} didn't make it"))
+                )
+                .Merge(4 /*at a time*/)
                 .Aggregate(
                     Enumerable.Empty<string>(),
-                    (acc, x) => acc.Concat(new[] { x }));
+                    (acc, x) => acc.Concat(new[] {x}));
         }
 
         private static async Task<string> GetStatusAsync(int id)
@@ -26,7 +34,11 @@ namespace RxExamples.Pages
 
             var result = $"ID:{id} - request Time:[{FormatTimeNow()}]";
             await Task.Delay(1000);
-            
+
+            if (id == 3)
+            {
+                throw new Exception(":(");
+            }
             return $"{result} - response Time:[{FormatTimeNow()}]";
         }
     }
