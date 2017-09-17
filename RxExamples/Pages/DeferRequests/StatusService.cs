@@ -16,7 +16,7 @@ namespace RxExamples.Pages
                     Observable.Defer(
                             () => GetStatusAsync(id).ToObservable()
                         )
-                        .Retry(1 /*time before give up*/)
+                        .Retry(1 /*more time*/)
                         .Catch(Observable.Return($"{id} didn't make it"))
                 )
                 .Merge(4 /*at a time*/)

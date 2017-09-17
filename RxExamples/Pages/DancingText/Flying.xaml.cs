@@ -53,12 +53,14 @@ namespace RxExamples.Pages
         {
             var loopSchedular = new EventLoopScheduler();
 
-            movePoints.SelectMany(
+            movePoints
+                .SelectMany(
                     point =>
                         ItemsStream.SelectMany(
                             (item, index) => Observable
-                                .Return(new { item, Point = new Point(point.X + index, point.Y) })
-                                .Delay(TimeSpan.FromMilliseconds(index * 75), loopSchedular)))
+                                .Return(new {item, Point = new Point(point.X + index, point.Y)})
+                                .Delay(TimeSpan.FromMilliseconds(index * 75), loopSchedular))
+                )
                 .ObserveOnDispatcher()
                 .Subscribe(x =>
                 {
