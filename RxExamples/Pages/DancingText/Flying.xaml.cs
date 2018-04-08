@@ -58,14 +58,14 @@ namespace RxExamples.Pages
                     point =>
                         ItemsStream.SelectMany(
                             (item, index) => Observable
-                                .Return(new {item, Point = new Point(point.X + index, point.Y)})
+                                .Return(new { item, index, point })
                                 .Delay(TimeSpan.FromMilliseconds(index * 75), loopSchedular))
                 )
                 .ObserveOnDispatcher()
                 .Subscribe(x =>
                 {
-                    x.item.Left = x.Point.X;
-                    x.item.Top = x.Point.Y;
+                    x.item.Left = x.point.X + x.index * 10 + 15;
+                    x.item.Top = x.point.Y;
                 });
         }
 
