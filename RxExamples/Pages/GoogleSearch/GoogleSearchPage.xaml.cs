@@ -12,8 +12,8 @@ namespace RxExamples.Pages
         public GoogleSearchPage()
         {
             InitializeComponent();
-            Observable.FromEventPattern(TextBox, nameof(TextBox.TextChanged))
-                .Select(_ => TextBox.Text)
+            Observable.FromEventPattern(SearchBox, nameof(SearchBox.TextChanged))
+                .Select(_ => SearchBox.Text)
                 .Where(newSearchToken => newSearchToken.Length > 2)
                 .Throttle(TimeSpan.FromSeconds(0.5))
                 .DistinctUntilChanged()

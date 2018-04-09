@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using Newtonsoft.Json;
 
@@ -10,9 +9,7 @@ namespace RxExamples.Pages
     {
         public string Name { get; set; }
 
-        [DefaultValue("N/A")]
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
-        public string Capital { get; set; } = "N/A";
+        public string Capital { get; set; } 
         public string Flag { get; set; }
 
     }

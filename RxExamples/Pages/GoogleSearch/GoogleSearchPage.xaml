@@ -22,7 +22,7 @@
             <pages:NoCapitalConverter x:Key="IfNoCapital" />
 
             <DataTemplate
-                x:Key="Card"
+                x:Key="CountryCard"
                 DataType="pages:Country">
 
                 <materialDesign:Card
@@ -72,7 +72,7 @@
         </Grid.RowDefinitions>
 
         <TextBox
-            x:Name="TextBox"
+            x:Name="SearchBox"
             Grid.Row="0"
             Margin="0,0,0,10"
             materialDesign:HintAssist.Hint="Search"
@@ -84,13 +84,15 @@
 
         </TextBox>
 
-        <StackPanel Grid.Row="1">
+        <StackPanel
+            Grid.Row="1"
+            CanVerticallyScroll="False">
 
             <TextBlock x:Name="TimeBlock" />
 
             <ItemsControl
                 x:Name="CountriesList"
-                ItemTemplate="{StaticResource Card}">
+                ItemTemplate="{StaticResource CountryCard}">
 
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
