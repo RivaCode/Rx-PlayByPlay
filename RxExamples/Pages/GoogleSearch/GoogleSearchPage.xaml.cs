@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Threading;
 
@@ -11,7 +10,6 @@ namespace RxExamples.Pages
     /// </summary>
     public partial class GoogleSearchPage : UserControl
     {
-        private CancellationTokenSource _cts;
         private DispatcherTimer _throttleTimer;
         private string _lastSearchToken;
         private string _searchCandidate;
@@ -47,12 +45,10 @@ namespace RxExamples.Pages
                 return;
             }
 
-            _cts?.Cancel(true);
-            _cts = new CancellationTokenSource();
             try
             {
                 _lastSearchToken = _searchCandidate;
-                var (countries, stamp) = await SearchService.SearchAsync(_lastSearchToken, _cts.Token);
+                var (countries, stamp) = await SearchService.SearchAsync(_lastSearchToken);
                 CountriesList.ItemsSource = countries;
                 TimeBlock.Text = stamp.ToString();
             }
