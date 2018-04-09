@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
-using System.Net;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
 using Svg;
@@ -26,26 +25,24 @@ namespace RxExamples.Pages
             }
             try
             {
-                using (WebClient client = new WebClient())
+                var path = Path.Combine(Environment.CurrentDirectory, "Assests", svgFile);
+                var byteArray = File.ReadAllBytes(path);
+                using (var stream = new MemoryStream(byteArray))
                 {
-                    var byteArray = client.DownloadData(svgFile);
-                    using (var stream = new MemoryStream(byteArray))
-                    {
-                        var svgDocument = SvgDocument.Open<SvgDocument>(stream);
-                        var bitmap = svgDocument.Draw();
+                    var svgDocument = SvgDocument.Open<SvgDocument>(stream);
+                    var bitmap = svgDocument.Draw();
 
-                        MemoryStream ms = new MemoryStream();
-                        bitmap.Save(ms, ImageFormat.Bmp);
-                        BitmapImage image = new BitmapImage();
-                        image.BeginInit();
-                        image.DecodePixelWidth = 35;
-                        image.DecodePixelHeight = 25;
-                        ms.Seek(0, SeekOrigin.Begin);
-                        image.StreamSource = ms;
-                        image.EndInit();
-                        _svgCache[svgFile] = image;
-                        return image;
-                    }
+                    MemoryStream ms = new MemoryStream();
+                    bitmap.Save(ms, ImageFormat.Bmp);
+                    BitmapImage image = new BitmapImage();
+                    image.BeginInit();
+                    image.DecodePixelWidth = 35;
+                    image.DecodePixelHeight = 25;
+                    ms.Seek(0, SeekOrigin.Begin);
+                    image.StreamSource = ms;
+                    image.EndInit();
+                    _svgCache[svgFile] = image;
+                    return image;
                 }
             }
             catch

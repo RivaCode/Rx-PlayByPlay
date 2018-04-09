@@ -9,6 +9,7 @@ namespace RxExamples.Pages
     public static class SearchService
     {
         private static int _attemtNumber = 0;
+        private static Random _rnd = new Random();
 
         public static Task<(IEnumerable<Country>, SearchStamp)> SearchAsync(
             string searchToken,
@@ -16,7 +17,7 @@ namespace RxExamples.Pages
         {
             _attemtNumber++;
             var lowercaseToken = searchToken.ToLower();
-            return Task.Delay(1000, token)
+            return Task.Delay(_rnd.Next(100, 200), token)
                 .ContinueWith(_ =>
                     (
                     CountryProvider.All.Where(c =>
@@ -41,6 +42,6 @@ namespace RxExamples.Pages
             _when = DateTime.Now;
         }
 
-        public override string ToString() => $"Attempt #{_attempt} was executed at {_when.ToShortTimeString()} for search token:[{_term}]";
+        public override string ToString() => $"Attempt #{_attempt} was executed at {_when:T} for search token:[{_term}]";
     }
 }
