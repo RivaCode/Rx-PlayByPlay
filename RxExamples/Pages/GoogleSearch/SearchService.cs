@@ -17,7 +17,7 @@ namespace RxExamples.Pages
         {
             _attemtNumber++;
             var lowercaseToken = searchToken.ToLower();
-            return Task.Delay(_rnd.Next(100, 200), token)
+            return Task.Delay(_rnd.Next(500, 1000), token)
                 .ContinueWith(_ =>
                     (
                     CountryProvider.All.Where(c =>
