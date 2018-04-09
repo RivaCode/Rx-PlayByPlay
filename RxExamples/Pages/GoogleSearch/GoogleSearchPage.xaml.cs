@@ -10,44 +10,31 @@ namespace RxExamples.Pages
     /// </summary>
     public partial class GoogleSearchPage : UserControl
     {
-        private DispatcherTimer _throttleTimer;
         private string _lastSearchToken;
-        private string _searchCandidate;
 
         public GoogleSearchPage()
         {
             InitializeComponent();
 
             SearchBox.TextChanged += OnSearchTextChanged;
-
-            _throttleTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(0.5)};
-            _throttleTimer.Tick += OnThrottleElapsed;
         }
 
-        private void OnSearchTextChanged(object sender, TextChangedEventArgs textChangedEventArgs)
+        private async void OnSearchTextChanged(object sender, TextChangedEventArgs textChangedEventArgs)
         {
             var candidateSearchTerm = SearchBox.Text;
             if (candidateSearchTerm.Length < 3)
             {
-                _throttleTimer.Stop();
                 return;
             }
 
-            _searchCandidate = candidateSearchTerm;
-            RestartThrottle();
-        }
-
-        private async void OnThrottleElapsed(object sender, EventArgs elapsedEventArgs)
-        {
-            _throttleTimer.Stop();
-            if (_lastSearchToken == _searchCandidate)
+            if (_lastSearchToken == candidateSearchTerm)
             {
                 return;
             }
 
             try
             {
-                _lastSearchToken = _searchCandidate;
+                _lastSearchToken = candidateSearchTerm;
                 var (countries, stamp) = await SearchService.SearchAsync(_lastSearchToken);
                 CountriesList.ItemsSource = countries;
                 TimeBlock.Text = stamp.ToString();
@@ -56,12 +43,6 @@ namespace RxExamples.Pages
             {
                 // ignore
             }
-        }
-
-        private void RestartThrottle()
-        {
-            _throttleTimer.Stop();
-            _throttleTimer.Start();
         }
     }
 }
