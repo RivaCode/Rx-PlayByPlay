@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Reactive.Linq;
 using System.Windows.Controls;
 
@@ -22,7 +21,12 @@ namespace RxExamples.Pages
                 .Select(searchToken => SearchService.SearchAsync(searchToken))
                 .Switch()
                 .ObserveOnDispatcher()
-                .Subscribe(results => ResultList.ItemsSource = results.ToList());
+                .Subscribe(result =>
+                {
+                    var (countries, stamp) = result;
+                    CountriesList.ItemsSource = countries;
+                    TimeBlock.Text = stamp.ToString();
+                });
         }
     }
 }

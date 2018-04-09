@@ -6,6 +6,7 @@
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="clr-namespace:RxExamples.Pages"
     xmlns:rxExamples="clr-namespace:RxExamples"
     d:DesignHeight="300"
     d:DesignWidth="300"
@@ -16,6 +17,50 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBox.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <pages:SvgConverter x:Key="Svg" />
+            <pages:NoCapitalConverter x:Key="IfNoCapital" />
+
+            <DataTemplate
+                x:Key="Card"
+                DataType="pages:Country">
+
+                <materialDesign:Card
+                    MinWidth="100"
+                    Margin="10"
+                    Padding="5">
+                    <HeaderedContentControl>
+
+                        <HeaderedContentControl.Header>
+                            <TextBlock
+                                FontWeight="Bold"
+                                Text="{Binding Name}" />
+                        </HeaderedContentControl.Header>
+
+                        <StackPanel
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                            <Border
+                                BorderBrush="LightGray"
+                                BorderThickness="1">
+                                <Image
+                                    Width="35"
+                                    Height="35"
+                                    Source="{Binding Flag, Converter={StaticResource Svg}}" />
+                            </Border>
+                            <TextBlock
+                                Padding="5,0"
+                                VerticalAlignment="Center"
+                                Text="{Binding Capital, Converter={StaticResource IfNoCapital}}" />
+                        </StackPanel>
+
+                    </HeaderedContentControl>
+
+                </materialDesign:Card>
+
+            </DataTemplate>
+
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -41,26 +86,17 @@
 
         <StackPanel Grid.Row="1">
 
-            <TextBlock Text="Execute at" />
+            <TextBlock x:Name="TimeBlock" />
 
-            <ItemsControl x:Name="ResultList">
+            <ItemsControl
+                x:Name="CountriesList"
+                ItemTemplate="{StaticResource Card}">
 
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
-
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <materialDesign:Card
-                            Height="100"
-                            MinWidth="100"
-                            Margin="10">
-                            <TextBlock Text="{Binding .}" />
-                        </materialDesign:Card>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
             </ItemsControl>
 
         </StackPanel>
